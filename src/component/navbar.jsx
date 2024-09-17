@@ -78,10 +78,10 @@ function Navbar() {
                                 </svg>
                             </button>
                         </div>
-                    
+
                         <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                             <div className="flex flex-shrink-0 items-center">
-                                <img className="h-8 w-auto" src="src/assets/todo.png" alt="Your Company" />
+                                <img className="h-8 w-auto" src="./../assets/todo.png" alt="Your Company" />
                                 <h2 className="text-2xl font-bold leading-7 mx-5 text-green-100 sm:truncate sm:text-3xl sm:tracking-tight">ToDo App</h2>
                             </div>
                             {/* <div className="hidden sm:ml-6 sm:block">
