@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.task {
+    font-size: xx-large;
+}
+
+.tasktodo {
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid silver;
+    width: 360px;
+}
+
+.taskbtn {
+    width: 50px;
+    height: 50px;
+}
+
+.todobtn {
+    display: flex;
+    justify-content: space-around;
+}
