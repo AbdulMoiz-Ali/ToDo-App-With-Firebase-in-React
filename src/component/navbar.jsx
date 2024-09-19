@@ -1,6 +1,6 @@
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth, db } from '../configration/firebaseconf';
 import { doc, getDoc } from 'firebase/firestore';
 function Navbar() {
@@ -11,7 +11,7 @@ function Navbar() {
     const [authbtn, setauthbtn] = useState(true);
     const [username, setusername] = useState(false);
     const [usname, setusname] = useState(null);
-
+    const navigator = useNavigate()
     // Toggle function to show/hide the menu
     const toggleMenu = () => {
         setIsMenuVisible(prevState => !prevState);
@@ -19,7 +19,12 @@ function Navbar() {
     const toggleMenuleft = () => {
         setIsMenuleft(prevState => !prevState);
     };
+    const logoclick = () => {
+        navigator("")
+    };
+
     const logoutbtn = () => {
+
         signOut(auth)
             .then(() => {
                 // Sign-out successful.
@@ -28,15 +33,16 @@ function Navbar() {
                 setusername(false);
                 setauthbtn(true);
                 setusname(null);
+                console.log("log out")
             })
             .catch((error) => {
                 console.log(error)
-            });
+            })
     }
     onAuthStateChanged(auth, (user) => {
         if (user) {
             const uid = user.uid;
-            console.log(uid)
+            // console.log(uid)
             getDoc(doc(db, "users", uid))
                 .then((snapshot) => {
                     const userData = snapshot.data();
@@ -55,7 +61,7 @@ function Navbar() {
                     setusername(false);
                     setauthbtn(true);
                     setusname(null);
-                });
+                })
         }
     })
     return (
@@ -69,21 +75,21 @@ function Navbar() {
                                 <span className="absolute -inset-0.5"></span>
                                 <span className="sr-only">Open main menu</span>
 
-                                <svg className="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                                <svg className="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                                 </svg>
 
-                                <svg className="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                <svg className="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
                         </div>
 
                         <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                            <div className="flex flex-shrink-0 items-center">
+                            <div style={{ cursor: "pointer" }} onClick={logoclick} className="flex flex-shrink-0 items-center">
                                 <img className="h-8 w-auto" src="https://i.ibb.co/RbVPLgH/todo.png" alt="todo" border="0" />
                                 {/* <img className="h-8 w-auto" src="src/component/images/todo.svg" alt="Your Company" /> */}
-                                <h2 className="text-2xl font-bold leading-7 mx-5 text-green-100 sm:truncate sm:text-3xl sm:tracking-tight">ToDo App</h2>
+                                <h2 className="text-2xl hidden font-bold leading-7 mx-5 text-green-100 sm:truncate sm:text-3xl sm:tracking-tight sm:block">ToDo App</h2>
                             </div>
                             {/* <div className="hidden sm:ml-6 sm:block">
                                 <div className="flex space-x-4">
@@ -97,10 +103,10 @@ function Navbar() {
                         <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                             {username === false ? <button type="button" className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                 <div style={{ display: authbtn ? 'flex' : 'none', }} className="max-sm:hidden space-x-4">
-                                    <Link to={"login"} className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Log in</Link>
+                                    <Link to={"login"} className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white hidden sm:block">Log in</Link>
                                     <Link to={"signup"} className="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Sign Up</Link>
                                 </div>
-                            </button> : <h2 className="text-sm font-bold leading-7 mx-5 text-green-100 sm:truncate sm:text-lg sm:tracking-tight">{usname}</h2>}
+                            </button> : <h2 className="text-sm font-bold leading-7 mx-5 hidden text-green-100 sm:truncate sm:text-lg sm:tracking-tight sm:block">{usname}</h2>}
 
 
 
@@ -117,9 +123,9 @@ function Navbar() {
                                 </div>
 
 
-                                <div style={{ display: isMenuVisible ? 'block' : 'none', }} className="block absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button">
-                                    <Link to={"history"} className="block px-4 py-2 text-sm text-gray-700" role="menuitem" id="user-menu-item-1">Hostory</Link>
-                                    <button onClick={logoutbtn} className="block px-4 py-2 text-sm text-gray-700" role="menuitem" id="user-menu-item-1">Log Out</button>
+                                <div style={{ display: isMenuVisible ? 'flex' : 'none', }} className="items-center justify-around absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button">
+                                    {/* <Link to={"/"} className="block px-4 py-2 text-sm text-gray-700" role="menuitem" id="user-menu-item-1">Home</Link> */}
+                                    <button onClick={logoutbtn} className="flex items-center gap-12 font-medium px-4 py-2 text-sm text-gray-700" role="menuitem" id="user-menu-item-1"><span>Log Out</span><span style={{width:"10px",height:"20px"}} className="loader"></span></button>
                                 </div>
                             </div>
                         </div>
@@ -128,8 +134,8 @@ function Navbar() {
 
                 <div style={{ display: isMenuleft ? 'block' : 'none', }} className="sm:hidden" id="mobile-menu">
                     <div className="space-y-1 px-2 pb-3 pt-2">
-                        <a href="#" className="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" aria-current="page">Log in</a>
-                        <a href="#" className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Sign Up</a>
+                        <Link to={"login"} className="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" aria-current="page">Log in</Link>
+                        <Link to={"signup"} className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Sign Up</Link>
                     </div>
                 </div>
             </nav>

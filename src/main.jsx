@@ -6,7 +6,6 @@ import Layout from '../layout'
 import Login from './pages/login'
 import Signup from './pages/signup'
 import Error from './pages/error'
-import History from './pages/histroy'
 
 const router = createBrowserRouter([
   {
@@ -24,10 +23,6 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <Signup />,
-      },
-      {
-        path: "history",
-        element: <History />,
       },
       {
         path: "*",

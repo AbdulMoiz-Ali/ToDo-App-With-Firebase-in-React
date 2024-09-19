@@ -11,6 +11,7 @@
     align-items: center;
     border-bottom: 3px solid silver;
     width: 360px;
+    justify-content: space-evenly;
 }
 
 .taskbtn {
@@ -21,4 +22,39 @@
 .todobtn {
     display: flex;
     justify-content: space-around;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+    width: 40px;
+    height: 80px;
+    display: grid;
+    color: #000;
+    background:
+        linear-gradient(currentColor 0 0) top/100% 2px,
+        radial-gradient(farthest-side at top, #0000 calc(100% - 2px), currentColor calc(100% - 1px), #0000) top,
+        linear-gradient(currentColor 0 0) bottom/100% 2px,
+        radial-gradient(farthest-side at bottom, #0000 calc(100% - 2px), currentColor calc(100% - 1px), #0000) bottom;
+    background-size: 100% 1px, 100% 50%;
+    background-repeat: no-repeat;
+    animation: l18 4s infinite linear;
+}
+
+.loader::before,
+.loader::after {
+    content: "";
+    grid-area: 1/1;
+    background: inherit;
+    border: inherit;
+    animation: inherit;
+}
+
+.loader::after {
+    animation-duration: 2s;
+}
+
+@keyframes l18 {
+    100% {
+        transform: rotate(1turn)
+    }
 }
