@@ -76,7 +76,7 @@ function Todo() {
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <div className='flex flex-col items-center justify-cente'>
-          <h1 className="text-2xl mb-4">Welcome to the ToDo App!</h1>
+          <h1 className="text-2xl mb-4">Welcome to the Task Manager App!</h1>
         </div>
         <form onSubmit={createtodo} className="space-y-6">
           <div>

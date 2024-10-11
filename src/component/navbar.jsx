@@ -89,7 +89,7 @@ function Navbar() {
                             <div style={{ cursor: "pointer" }} onClick={logoclick} className="flex flex-shrink-0 items-center">
                                 <img className="h-8 w-auto" src="https://i.ibb.co/RbVPLgH/todo.png" alt="todo" border="0" />
                                 {/* <img className="h-8 w-auto" src="src/component/images/todo.svg" alt="Your Company" /> */}
-                                <h2 className="text-2xl hidden font-bold leading-7 mx-5 text-green-100 sm:truncate sm:text-3xl sm:tracking-tight sm:block">ToDo App</h2>
+                                <h2 className="text-2xl hidden font-bold leading-7 mx-5 text-green-100 sm:truncate sm:text-3xl sm:tracking-tight sm:block">Task Manager App</h2>
                             </div>
                             {/* <div className="hidden sm:ml-6 sm:block">
                                 <div className="flex space-x-4">
